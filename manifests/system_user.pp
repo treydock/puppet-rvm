@@ -18,7 +18,7 @@ define rvm::system_user () {
   }
 
   exec { "/usr/sbin/usermod -a -G $group $username":
-    unless  => "/bin/cat /etc/group | grep $group | grep $username",
+    unless  => "/usr/bin/getent group ${group} | /bin/egrep -q -E ':|,${username},|$'",
     require => [User[$username], Group[$group]];
   }
 }
