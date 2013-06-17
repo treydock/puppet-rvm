@@ -7,4 +7,6 @@ doc/
 spec/fixtures/
 pkg/
 .vagrant/
+.bundle/
+vendor/bundle/
 Gemfile.lock

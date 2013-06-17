@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-group :rake do
-  gem 'puppet-blacksmith', '>=1.0.5'
-end
+#group :rake do
+#  gem 'puppet-blacksmith', '>=1.0.5'
+#end
 
 group :development, :test do
   gem 'rake'
