@@ -11,10 +11,14 @@ class rvm::passenger::apache::centos::post(
   $binpath
 ) {
 
+  $ruby_wrapper_path    = "${rvm_prefix}rvm/wrappers/${ruby_version}/ruby"
+
   if versioncmp($version, '4.0.0') >= 0 {
     $mod_passenger_path = "${rvm::passenger::apache::gempath}/passenger-${rvm::passenger::apache::version}/libout/apache2/mod_passenger.so"
+    $passenger_ruby     = "PassengerDefaultRuby ${ruby_wrapper_path}"
   } else {
     $mod_passenger_path = "${rvm::passenger::apache::gempath}/passenger-${rvm::passenger::apache::version}/ext/apache2/mod_passenger.so"
+    $passenger_ruby     = "PassengerRuby ${ruby_wrapper_path}"
   }
 
   exec {
