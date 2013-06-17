@@ -1,20 +1,17 @@
-require 'bundler'
-Bundler.require(:rake)
-require 'rake/clean'
+require 'rubygems'
+require 'bundler/setup'
 
-CLEAN.include('spec/fixtures/', 'doc', 'pkg')
-CLOBBER.include('.tmp', '.librarian')
+Bundler.require :default
 
+require 'rspec/core/rake_task'
 require 'puppetlabs_spec_helper/rake_tasks'
-require 'puppet_blacksmith/rake_tasks'
+require 'rspec-system/rake_task'
 
-PuppetLint.configuration.send("disable_80chars")
+task :default do
+  sh %{rake -T}
+end
 
-task :default => [:clean, :spec]
-
-desc "Integration test with Vagrant"
-task :integration do
-  sh %{vagrant destroy --force}
-  sh %{vagrant up}
-  sh %{vagrant destroy --force}
+namespace :spec do
+  desc "Run rspec-puppet and puppet-lint tasks"
+  task :all => [ :spec, :lint ]
 end
