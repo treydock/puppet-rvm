@@ -9,11 +9,15 @@ shared_context 'rvm::passenger::apache::centos::post' do
     end
   end
 
+  let :ruby_version do
+    params[:ruby_version].split('@').first
+  end
+
   let :passenger_ruby_line do
     if params[:version] >= '4.0.0'
-      "PassengerDefaultRuby #{params[:rvm_prefix]}rvm/wrappers/#{params[:ruby_version]}/ruby"
+      "PassengerDefaultRuby #{params[:rvm_prefix]}rvm/wrappers/#{ruby_version}/ruby"
     else
-      "PassengerRuby #{params[:rvm_prefix]}rvm/wrappers/#{params[:ruby_version]}/ruby"
+      "PassengerRuby #{params[:rvm_prefix]}rvm/wrappers/#{ruby_version}/ruby"
     end
   end
 

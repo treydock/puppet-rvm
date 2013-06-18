@@ -41,4 +41,17 @@ describe 'rvm::passenger::apache' do
     
     include_context 'rvm::passenger::apache::centos::post'
   end
+
+  context "ruby_version => ruby-1.9.3-p429@global, version => 4.0.5" do
+    let :params do
+      default_params.merge({
+        :ruby_version => 'ruby-1.9.3-p429@global',
+        :version => '4.0.5',
+      })
+    end
+    let(:gempath) { "#{params[:rvm_prefix]}rvm/gems/#{params[:ruby_version]}/gems" }
+    let(:binpath) { "#{params[:rvm_prefix]}rvm/bin/" }
+    
+    include_context 'rvm::passenger::apache::centos::post'
+  end
 end

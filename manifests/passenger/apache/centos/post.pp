@@ -11,7 +11,8 @@ class rvm::passenger::apache::centos::post(
   $binpath            = $rvm::passenger::apache::binpath
 ) inherits rvm::passenger::apache {
 
-  $ruby_wrapper_path    = "${rvm_prefix}rvm/wrappers/${ruby_version}/ruby"
+  $ruby_version_real    = inline_template('<%= @ruby_version.split("@").first %>')
+  $ruby_wrapper_path    = "${rvm_prefix}rvm/wrappers/${ruby_version_real}/ruby"
 
   if versioncmp($version, '4.0.0') >= 0 {
     $mod_passenger_path = "${gempath}/passenger-${version}/libout/apache2/mod_passenger.so"
