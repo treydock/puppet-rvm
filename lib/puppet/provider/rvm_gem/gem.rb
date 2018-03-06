@@ -41,7 +41,7 @@ Puppet::Type.type(:rvm_gem).provide(:gem) do
     list = []
     begin
       list = execute(command).split("\n").collect do |set|
-        if gemhash = self.class.gemsplit(set)
+        if gemhash = self.class.gemsplit(set.gsub('default: ', ''))
           gemhash[:provider] = :gem
           gemhash
         else
@@ -63,7 +63,7 @@ Puppet::Type.type(:rvm_gem).provide(:gem) do
     when /^\*\*\*/, /^\s*$/, /^\s+/; return nil
     when /gem: not found/; return nil
     # when /^(\S+)\s+\((((((\d+[.]?))+)(,\s)*)+)\)/
-    when /^(\S+)\s+\((?:default\:\s)?(\d+.*)\)/
+    when /^(\S+)\s+\((\d+.*)\)/
       name = $1
       version = $2.split(/,\s*/)
       return {
